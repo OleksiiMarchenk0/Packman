@@ -1,3 +1,8 @@
+.container{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
 .board {
   position: relative;
   background-color: #34495e;

@@ -1,23 +1,29 @@
-
 import React, { Component } from 'react';
-
 import { ReactComponent as GhostSvg } from './ghost.svg';
 import './style.css';
 class Ghost extends Component {
 
   state = {
+    isActive:true,
     direction: 'left',
     position: {
-      top: 50 * 3,
-      left: 50 * 3
+      top: 500,
+      left:200,
     }
   }
 
   componentDidMount() {
     this.changeDirectionInterval = setInterval(this.changeDirection, 2000);
-    this.moveInterval = setInterval(this.move, 2000);
+    //TODO : 3 levels-> easy - 1000ms, medium - 500ms, hard - 200ms
+    this.moveInterval = setInterval(this.move, 200);
+   
   }
-
+disableGhost(){
+  const {isActive}=this.state;
+  if(isActive){
+    this.componentWillUnmount();
+  }
+}
   componentWillUnmount() {
     clearInterval(this.changeDirectionInterval);
     clearInterval(this.moveInterval);
@@ -26,13 +32,15 @@ class Ghost extends Component {
   changeDirection = () => {
     const arrayOfMovement = ['left', 'up', 'down', 'right'];
     const movement = Math.floor(Math.random() * 4);
-
+    const { position } = this.state;
+    const {top:currentTop,left:currentLeft} = position;
     this.setState({ direction: arrayOfMovement[movement] });
+    this.props.getGhostPosition(currentTop, currentLeft);
+    
   }
 
   move = () => {
     // TODO: refactor
-
     const currentTop = this.state.position.top;
     const currentLeft = this.state.position.left;
     const { direction } = this.state;
