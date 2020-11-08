@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { ReactComponent as PacmanSvg } from "./pacman.svg";
+import "./style.css";
 
-import { ReactComponent as PacmanSvg } from './pacman.svg';
-import './style.css';
-class Pacman extends Component {
-
+export default class Pacman extends Component {
   state = {
-    direction: 'right',
+    direction: "right",
     position: {
       top: 0,
-      left: 0
-    }
-  }
+      left: 0,
+    },
+  };
 
   constructor(props) {
     super(props);
@@ -22,54 +21,56 @@ class Pacman extends Component {
   }
 
   handleKeyDown = (event) => {
-    console.log(event.keyCode, event.key);
-
-    const currentTop = this.state.position.top;
-    const currentLeft = this.state.position.left;
+    const { position } = this.state;
+    const {top:currentTop,left:currentLeft} = position;
     const { step, border, size, topScoreBoardHeight } = this.props;
-
     // 39 ArrowRight
     // 40 ArrowDown
     // 37 ArrowLeft
     // 38 ArrowUp
-    if (event.key === 'ArrowUp') {
+    if (event.key === "ArrowUp") {
       this.setState({
         position: {
-          // top: currentTop - step,
+          // top: currentTop - step
           top: Math.max(currentTop - step, 0),
-          left: currentLeft
+          left: currentLeft,
         },
-        direction: 'up'
+        direction: "up",
       });
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === "ArrowRight") {
       this.setState({
         position: {
           top: currentTop,
           // left: currentLeft + step
-          left: Math.min(currentLeft + step, window.innerWidth - border - size)
+          left: Math.min(currentLeft + step, window.innerWidth - border - size),
         },
-        direction: 'right'
+        direction: "right",
       });
-    } else if (event.key === 'ArrowDown') {
+    } else if (event.key === "ArrowDown") {
       this.setState({
         position: {
           // top: currentTop + step,
-          top: Math.min(currentTop + step, window.innerHeight - border - size - topScoreBoardHeight),
-          left: currentLeft
+          top: Math.min(
+            currentTop + step,
+            window.innerHeight - border - size - topScoreBoardHeight
+          ),
+          left: currentLeft,
         },
-        direction: 'down'
+        direction: "down",
       });
-    } else if (event.key === 'ArrowLeft') {
+    } else if (event.key === "ArrowLeft") {
       this.setState({
         position: {
           top: currentTop,
           // left: currentLeft - step
-          left: Math.max(currentLeft - step, 0)
+          left: Math.max(currentLeft - step, 0),
         },
-        direction: 'left'
+        direction: "left",
       });
     }
-  }
+   
+    this.props.getPackmanPosition(currentTop, currentLeft);
+  };
 
   render() {
     const { direction, position } = this.state;
@@ -78,7 +79,7 @@ class Pacman extends Component {
         ref={this.pacmanRef}
         className={`pacman pacman-${direction}`}
         tabIndex="0"
-        onKeyDown={this.handleKeyDown}
+        onKeyDown={this.props.isPackmanAlive?this.handleKeyDown:null}
         style={position}
       >
         <PacmanSvg />
@@ -92,7 +93,5 @@ Pacman.defaultProps = {
   size: 50, // pacman size: 50x50px
   // TODO: move to config
   border: 10 * 2,
-  topScoreBoardHeight: 50
-}
-
-export default Pacman;
+  topScoreBoardHeight: 50,
+};
