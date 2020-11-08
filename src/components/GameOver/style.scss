@@ -1,0 +1,65 @@
+@import "../../variables.scss";
+.game-over-component {
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 50%;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: $border-radius;
+  p {
+    font-size: 4em;
+    font-weight: 100;
+  }
+  .alert {
+    font-weight: 700;
+    color: $custom-red;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+  }
+  input {
+    width: 10vw;
+    height: 4vh;
+    color: $custom-cyan;
+    font-weight: 700;
+    border: 1px solid $custom-cyan;
+    background-color: #fff;
+    padding: 5px;
+    margin: 10px 0;
+    outline: none;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+
+    button {
+      background: white;
+      border: 1px solid $custom-cyan;
+      color: $custom-cyan;
+      width: 10vw;
+      height: 5vh;
+      font-weight: 700;
+      margin: 0 5px;
+      transition: $transition;
+      &:disabled {
+        opacity: 0.3;
+      }
+      &:hover:not(:disabled) {
+        color: white;
+        border: 1px solid $custom-cyan;
+        background: $custom-cyan;
+      }
+    }
+  }
+}

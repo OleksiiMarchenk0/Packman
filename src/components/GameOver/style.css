@@ -22,10 +22,17 @@
       -ms-flex-align: center;
           align-items: center;
   padding: 20px;
+  border-radius: 15px;
 }
 
-.game-over-component h3 {
-  text-transform: uppercase;
+.game-over-component p {
+  font-size: 4em;
+  font-weight: 100;
+}
+
+.game-over-component .alert {
+  font-weight: 700;
+  color: #c0392b;
 }
 
 .game-over-component form {
@@ -40,6 +47,18 @@
       -ms-flex-align: center;
           align-items: center;
   width: 50%;
+}
+
+.game-over-component input {
+  width: 10vw;
+  height: 4vh;
+  color: #34495e;
+  font-weight: 700;
+  border: 1px solid #34495e;
+  background-color: #fff;
+  padding: 5px;
+  margin: 10px 0;
+  outline: none;
 }
 
 .game-over-component .buttons {
@@ -58,7 +77,19 @@
   color: #34495e;
   width: 10vw;
   height: 5vh;
-  border-radius: 20px;
   font-weight: 700;
+  margin: 0 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.game-over-component .buttons button:disabled {
+  opacity: 0.3;
+}
+
+.game-over-component .buttons button:hover:not(:disabled) {
+  color: white;
+  border: 1px solid #34495e;
+  background: #34495e;
 }
 /*# sourceMappingURL=style.css.map */

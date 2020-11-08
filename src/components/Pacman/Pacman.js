@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
 import { ReactComponent as PacmanSvg } from "./pacman.svg";
 import "./style.css";
-class Pacman extends Component {
+
+export default class Pacman extends Component {
   state = {
     direction: "right",
     position: {
@@ -24,8 +24,6 @@ class Pacman extends Component {
     const { position } = this.state;
     const {top:currentTop,left:currentLeft} = position;
     const { step, border, size, topScoreBoardHeight } = this.props;
-    
-
     // 39 ArrowRight
     // 40 ArrowDown
     // 37 ArrowLeft
@@ -81,7 +79,7 @@ class Pacman extends Component {
         ref={this.pacmanRef}
         className={`pacman pacman-${direction}`}
         tabIndex="0"
-        onKeyDown={this.handleKeyDown}
+        onKeyDown={this.props.isPackmanAlive?this.handleKeyDown:null}
         style={position}
       >
         <PacmanSvg />
@@ -97,5 +95,3 @@ Pacman.defaultProps = {
   border: 10 * 2,
   topScoreBoardHeight: 50,
 };
-
-export default Pacman;

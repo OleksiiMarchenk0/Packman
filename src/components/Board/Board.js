@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import Pacman from "../Pacman";
 import Ghost from "../Ghost";
 import Food from "../Food";
-import Finish from "../Finish/Finish";
+import GameOver from "../GameOver/GameOver";
 import "./style.css";
 
-class Board extends Component {
+export default class Board extends Component {
   state = {
+    isPackmanAlive: true,
+    isGameOver: false,
     packmanPosition: {
       top: 0,
       left: 0,
@@ -15,8 +17,7 @@ class Board extends Component {
       top: undefined,
       left: undefined,
     },
-    isFinished: false,
-    score: undefined
+    score: undefined,
   };
   constructor(props) {
     super(props);
@@ -36,13 +37,14 @@ class Board extends Component {
   comparePosition() {
     const { top: topPackman, left: leftPackman } = this.state.packmanPosition;
     const { top: topGhost, left: leftGhost } = this.state.ghostPosition;
+    console.log(this.state.packmanPosition, this.state.ghostPosition);
     if (topPackman === topGhost && leftPackman === leftGhost) {
       const score = localStorage.getItem("score");
       this.setState({
-        isFinished: true,
-        score: score
+        isGameOver: true,
+        score: score,
+        isPackmanAlive: false,
       });
-      //TODO : ghostPosition - fixed
       this.ghostRef.current.disableGhost();
     }
   }
@@ -135,8 +137,8 @@ class Board extends Component {
 
     return (
       <div className="container">
-        {this.state.isFinished ? (
-          <Finish
+        {this.state.isGameOver ? (
+          <GameOver
             score={this.state.score}
             startNewGame={() => {
               this.forceUpdate();
@@ -147,9 +149,14 @@ class Board extends Component {
           {foods}
           <Pacman
             ref={this.pacmanRef}
+            isPackmanAlive={this.state.isPackmanAlive}
             getPackmanPosition={this.getPackmanPosition}
           />
-          <Ghost ref={this.ghostRef} color="blue" getGhostPosition={this.getGhostPosition} />
+          <Ghost
+            ref={this.ghostRef}
+            color="blue"
+            getGhostPosition={this.getGhostPosition}
+          />
         </div>
       </div>
     );
@@ -163,4 +170,3 @@ Board.defaultProps = {
   topScoreBoardHeight: 50,
 };
 
-export default Board;

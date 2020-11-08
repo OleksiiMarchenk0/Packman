@@ -1,6 +1,5 @@
-import React from 'react';
-
-import './style.css';
+import React from "react";
+import "./style.css";
 
 function Header({ score }) {
   return (
@@ -11,7 +10,7 @@ function Header({ score }) {
 }
 
 Header.defaultProps = {
-  score: 0
+  score: 0,
 };
 
 export default Header;

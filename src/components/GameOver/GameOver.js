@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./style.css";
 
-class Finish extends Component {
+class GameOver extends Component {
   state = {
     name:'',
-    score:undefined
+    score:undefined,
+    isScoreSaved:false
   };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -18,13 +19,15 @@ class Finish extends Component {
     e.preventDefault();
     const url = "http://localhost:3000/score";
     axios.post(url, this.state).then((response) => console.log(response));
+    this.setState({isScoreSaved:true})
     localStorage.clear();
   };
   render() {
-    const { name,score } = this.state;
+    const { name,score,isScoreSaved } = this.state;
     return (
       <div className="game-over-component">
-        <h3>Your score: {score}</h3>
+        <p>Your score: {score}</p>
+       {isScoreSaved? <span className="alert">Result was added</span>:null}
         <form>
         <input
           type="text"
@@ -34,7 +37,7 @@ class Finish extends Component {
           name="name"
         />
        <div className="buttons">
-       <button onClick={this.submitHandler}>Save results</button>
+       <button disabled={isScoreSaved} onClick={this.submitHandler}>Save results</button>
        <button onClick={this.props.startNewGame}>Play again</button>
        </div>
         </form>
@@ -44,4 +47,4 @@ class Finish extends Component {
   }
 }
 
-export default Finish;
+export default GameOver;

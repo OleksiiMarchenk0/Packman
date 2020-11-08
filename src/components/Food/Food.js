@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import "./style.css";
 
-import './style.css';
-
-class Food extends Component {
+export default class Food extends Component {
   state = {
     position: {
       top: this.props.position.top,
-      left: this.props.position.left
+      left: this.props.position.left,
     },
-    hidden: false
-  }
+    hidden: false,
+  };
 
   ate() {
     this.setState({ hidden: !this.hidden });
@@ -18,7 +17,7 @@ class Food extends Component {
   render() {
     const { position, hidden } = this.state;
     return (
-      <div style={position} className={hidden ? 'food hidden' : 'food'}>
+      <div style={position} className={hidden ? "food hidden" : "food"}>
         <div className="food-dot"></div>
       </div>
     );
@@ -28,6 +27,4 @@ class Food extends Component {
 Food.defaultProps = {
   foodSize: 50,
   position: { top: 0, left: 0 }
-}
-
-export default Food;
+};
