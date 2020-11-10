@@ -14,3 +14,5 @@ Food |  ![food.png](./artefacts/food.png)| Pacman food
 - if ghost hunts pacman - game will stopped,
 - at the end player will see information about score,
 - you can save your score with your name, by inputting them into field.
+
+[Back to Readme.md](../README.md)
