@@ -6,7 +6,7 @@ Name | Image | Description
 --- | --- | ---
 Pacman |  ![pacman.png](./artefacts/pacman.png)| Main hero
 Ghost |  ![ghost.png](./artefacts/ghost.png)| Main enemy
-Ghost |  ![food.png](./artefacts/food.png)| Pacman food
+Food |  ![food.png](./artefacts/food.png)| Pacman food
 
 ### How to play
 - After running game in a browser player should use arrow buttons on your keyboard to managing pacman,
