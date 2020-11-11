@@ -19,57 +19,77 @@ export default class Pacman extends Component {
   componentDidMount() {
     this.pacmanRef.current.focus();
   }
-
   handleKeyDown = (event) => {
     const { position } = this.state;
-    const {top:currentTop,left:currentLeft} = position;
+    const { top: currentTop, left: currentLeft } = position;
     const { step, border, size, topScoreBoardHeight } = this.props;
-    // 39 ArrowRight
-    // 40 ArrowDown
-    // 37 ArrowLeft
-    // 38 ArrowUp
     if (event.key === "ArrowUp") {
-      this.setState({
-        position: {
-          // top: currentTop - step
-          top: Math.max(currentTop - step, 0),
-          left: currentLeft,
+      this.setState(
+        {
+          position: {
+            top: Math.max(currentTop - step, 0),
+            left: currentLeft,
+          },
+          direction: "up",
         },
-        direction: "up",
-      });
+        () => {
+          this.props.getPackmanPosition(
+            this.state.position.top,this.state.position.left
+          );
+        }
+      );
     } else if (event.key === "ArrowRight") {
-      this.setState({
-        position: {
-          top: currentTop,
-          // left: currentLeft + step
-          left: Math.min(currentLeft + step, window.innerWidth - border - size),
+      this.setState(
+        {
+          position: {
+            top: currentTop,
+            left: Math.min(
+              currentLeft + step,
+              window.innerWidth - border - size
+            ),
+          },
+          direction: "right",
         },
-        direction: "right",
-      });
+        () => {
+          this.props.getPackmanPosition(
+           this.state.position.top,this.state.position.left
+          );
+        }
+      );
     } else if (event.key === "ArrowDown") {
-      this.setState({
-        position: {
-          // top: currentTop + step,
-          top: Math.min(
-            currentTop + step,
-            window.innerHeight - border - size - topScoreBoardHeight
-          ),
-          left: currentLeft,
+      this.setState(
+        {
+          position: {
+            top: Math.min(
+              currentTop + step,
+              window.innerHeight - border - size - topScoreBoardHeight
+            ),
+            left: currentLeft,
+          },
+          direction: "down",
         },
-        direction: "down",
-      });
+        () => {
+          this.props.getPackmanPosition(
+            this.state.position.top,this.state.position.left
+          );
+        }
+      );
     } else if (event.key === "ArrowLeft") {
-      this.setState({
-        position: {
-          top: currentTop,
-          // left: currentLeft - step
-          left: Math.max(currentLeft - step, 0),
+      this.setState(
+        {
+          position: {
+            top: currentTop,
+            left: Math.max(currentLeft - step, 0),
+          },
+          direction: "left",
         },
-        direction: "left",
-      });
+        () => {
+          this.props.getPackmanPosition(
+            this.state.position.top,this.state.position.left
+          );
+        }
+      );
     }
-   
-    this.props.getPackmanPosition(currentTop, currentLeft);
   };
 
   render() {
@@ -79,7 +99,7 @@ export default class Pacman extends Component {
         ref={this.pacmanRef}
         className={`pacman pacman-${direction}`}
         tabIndex="0"
-        onKeyDown={this.props.isPackmanAlive?this.handleKeyDown:null}
+        onKeyDown={this.props.isPackmanAlive ? this.handleKeyDown : null}
         style={position}
       >
         <PacmanSvg />
