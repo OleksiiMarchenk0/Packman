@@ -11,8 +11,7 @@ React is an open-source, front-end, Javascript library for building user interfa
 ### Install all dependencies 
 ``` npm install```
 ### Run json-server 
-``` cd src ```  
-```json-server --watch db.json```
+```npm run start-db```
 ### Run React project
 ```npm run start```
 ## Project documentation
