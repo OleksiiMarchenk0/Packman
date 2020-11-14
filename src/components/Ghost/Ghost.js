@@ -22,52 +22,49 @@ export default class Ghost extends Component {
       this.componentWillUnmount();
     }
   }
+  sendGhostCoord = () => {
+    this.props.getGhostPosition(
+      this.state.position.top,
+      this.state.position.left
+    );
+  };
   componentWillUnmount() {
     clearInterval(this.changeDirectionInterval);
     clearInterval(this.moveInterval);
   }
-
   changeDirection = () => {
     const arrayOfMovement = ["left", "up", "down", "right"];
     const movement = Math.floor(Math.random() * 4);
     this.setState({ direction: arrayOfMovement[movement] });
   };
-
   move = () => {
-    const { direction,position } = this.state;
-    const {top:currentTop,left:currentLeft} = position;
+    const { direction, position } = this.state;
+    const { top: currentTop, left: currentLeft } = position;
     const { step, border, size, topScoreBoardHeight } = this.props;
-
     if (direction === "up") {
       this.setState(
         {
-          position: {
-            // top: currentTop - step,
-            top: Math.max(currentTop - step, 0),
-            left: currentLeft,
-          },
+          position: { top: Math.max(currentTop - step, 0), left: currentLeft },
         },
-        this.props.getGhostPosition(currentTop, currentLeft)
+        this.sendGhostCoord()
       );
     } else if (direction === "right") {
       this.setState(
         {
           position: {
             top: currentTop,
-            // left: currentLeft + step
             left: Math.min(
               currentLeft + step,
               window.innerWidth - border - size
             ),
           },
         },
-        this.props.getGhostPosition(currentTop, currentLeft)
+        this.sendGhostCoord()
       );
     } else if (direction === "down") {
       this.setState(
         {
           position: {
-            // top: currentTop + step,
             top: Math.min(
               currentTop + step,
               window.innerHeight - border - size - topScoreBoardHeight
@@ -75,22 +72,20 @@ export default class Ghost extends Component {
             left: currentLeft,
           },
         },
-        this.props.getGhostPosition(currentTop, currentLeft)
+        this.sendGhostCoord()
       );
     } else if (direction === "left") {
       this.setState(
         {
           position: {
             top: currentTop,
-            // left: currentLeft - step
             left: Math.max(currentLeft - step, 0),
           },
         },
-        this.props.getGhostPosition(currentTop, currentLeft)
+        this.sendGhostCoord()
       );
     }
   };
-
   render() {
     const { color } = this.props;
     return (

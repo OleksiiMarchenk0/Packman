@@ -17,7 +17,7 @@ class GameOver extends Component {
   }
    submitHandler = (e) => {
     e.preventDefault();
-    const url = "http://localhost:3000/score";
+    const url = "http://localhost:3001/score";
     axios.post(url, this.state).then((response) => console.log(response));
     this.setState({isScoreSaved:true})
     localStorage.clear();

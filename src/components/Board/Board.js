@@ -21,6 +21,7 @@ export default class Board extends Component {
   };
   constructor(props) {
     super(props);
+
     this.pacmanRef = React.createRef();
     this.ghostRef = React.createRef();
 
@@ -37,15 +38,15 @@ export default class Board extends Component {
   comparePosition() {
     const { top: topPackman, left: leftPackman } = this.state.packmanPosition;
     const { top: topGhost, left: leftGhost } = this.state.ghostPosition;
-    console.log(this.state.packmanPosition, this.state.ghostPosition);
+    console.log(this.state.packmanPosition,this.state.ghostPosition)
     if (topPackman === topGhost && leftPackman === leftGhost) {
       const score = localStorage.getItem("score");
+      this.ghostRef.current.disableGhost();
       this.setState({
         isGameOver: true,
         score: score,
         isPackmanAlive: false,
       });
-      this.ghostRef.current.disableGhost();
     }
   }
   componentDidMount() {
@@ -94,8 +95,8 @@ export default class Board extends Component {
         top: top,
         left: left,
       },
-    });
-    this.comparePosition();
+    },this.comparePosition());
+    
   };
   getGhostPosition = (top, left) => {
     this.setState({
@@ -103,10 +104,9 @@ export default class Board extends Component {
         top: top,
         left: left,
       },
-    });
-    this.comparePosition();
+    }, this.comparePosition());
+   
   };
-
   render() {
     const { foodSize, border, topScoreBoardHeight } = this.props;
     let foods = [];
