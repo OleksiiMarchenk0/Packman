@@ -22,6 +22,12 @@ export default class Ghost extends Component {
       this.componentWillUnmount();
     }
   }
+  sendGhostCoord = () => {
+    this.props.getGhostPosition(
+      this.state.position.top,
+      this.state.position.left
+    );
+  };
   componentWillUnmount() {
     clearInterval(this.changeDirectionInterval);
     clearInterval(this.moveInterval);
@@ -32,17 +38,15 @@ export default class Ghost extends Component {
     this.setState({ direction: arrayOfMovement[movement] });
   };
   move = () => {
-    const { direction,position } = this.state;
-    const { top: currentTop, left: currentLeft } =  position;
+    const { direction, position } = this.state;
+    const { top: currentTop, left: currentLeft } = position;
     const { step, border, size, topScoreBoardHeight } = this.props;
     if (direction === "up") {
       this.setState(
         {
           position: { top: Math.max(currentTop - step, 0), left: currentLeft },
         },
-        () => {
-          this.props.getGhostPosition(this.state.position.top,this.state.position.left);
-        }
+        this.sendGhostCoord()
       );
     } else if (direction === "right") {
       this.setState(
@@ -55,9 +59,7 @@ export default class Ghost extends Component {
             ),
           },
         },
-        () => {
-          this.props.getGhostPosition(this.state.position.top,this.state.position.left);
-        }
+        this.sendGhostCoord()
       );
     } else if (direction === "down") {
       this.setState(
@@ -70,9 +72,7 @@ export default class Ghost extends Component {
             left: currentLeft,
           },
         },
-        () => {
-          this.props.getGhostPosition(this.state.position.top,this.state.position.left);
-        }
+        this.sendGhostCoord()
       );
     } else if (direction === "left") {
       this.setState(
@@ -82,13 +82,10 @@ export default class Ghost extends Component {
             left: Math.max(currentLeft - step, 0),
           },
         },
-        () => {
-          this.props.getGhostPosition(this.state.position.top,this.state.position.left);
-        }
+        this.sendGhostCoord()
       );
     }
   };
-
   render() {
     const { color } = this.props;
     return (

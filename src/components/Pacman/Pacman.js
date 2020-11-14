@@ -15,7 +15,12 @@ export default class Pacman extends Component {
     super(props);
     this.pacmanRef = React.createRef();
   }
-
+  sendPacmanCoord = () => {
+    this.props.getPackmanPosition(
+      this.state.position.top,
+      this.state.position.left
+    );
+  };
   componentDidMount() {
     this.pacmanRef.current.focus();
   }
@@ -32,11 +37,7 @@ export default class Pacman extends Component {
           },
           direction: "up",
         },
-        () => {
-          this.props.getPackmanPosition(
-            this.state.position.top,this.state.position.left
-          );
-        }
+        this.sendPacmanCoord()
       );
     } else if (event.key === "ArrowRight") {
       this.setState(
@@ -50,11 +51,7 @@ export default class Pacman extends Component {
           },
           direction: "right",
         },
-        () => {
-          this.props.getPackmanPosition(
-           this.state.position.top,this.state.position.left
-          );
-        }
+        this.sendPacmanCoord()
       );
     } else if (event.key === "ArrowDown") {
       this.setState(
@@ -68,11 +65,7 @@ export default class Pacman extends Component {
           },
           direction: "down",
         },
-        () => {
-          this.props.getPackmanPosition(
-            this.state.position.top,this.state.position.left
-          );
-        }
+        this.sendPacmanCoord()
       );
     } else if (event.key === "ArrowLeft") {
       this.setState(
@@ -83,11 +76,7 @@ export default class Pacman extends Component {
           },
           direction: "left",
         },
-        () => {
-          this.props.getPackmanPosition(
-            this.state.position.top,this.state.position.left
-          );
-        }
+        this.sendPacmanCoord()
       );
     }
   };
